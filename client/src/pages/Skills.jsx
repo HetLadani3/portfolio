@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/all'
 import { useRef, useMemo, useContext, useState, useEffect } from 'react'
 import { NavbarColorContext } from '../context/NavContext'
 import { Link } from 'react-router-dom'
-import { GitHubCalendar } from 'react-github-calendar';
+import GitHubCalendar from 'react-github-calendar';
 import SkillIconMap from '../components/skills/SkillIconMap';
 import SEO from '../components/common/SEO';
 
