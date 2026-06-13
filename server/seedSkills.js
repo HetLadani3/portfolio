@@ -114,7 +114,7 @@ const initialProjects = [
         subtitle: "Real-time Video Conferencing & Multiplayer Collaboration Space",
         year: "2026",
         image: "https://images.unsplash.com/photo-1616763355548-1b606f439f86?q=80&w=800",
-        live: "https://next-call-git-main-hetladani3s-projects.vercel.app",
+        live: "https://next-call-sigma.vercel.app",
         github: "https://github.com/HetLadani3/NextCall"
     },
     {

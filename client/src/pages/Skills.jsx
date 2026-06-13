@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/all'
 import { useRef, useMemo, useContext, useState, useEffect } from 'react'
 import { NavbarColorContext } from '../context/NavContext'
 import { Link } from 'react-router-dom'
-import GitHubCalendar from 'react-github-calendar';
+import { ActivityCalendar } from 'react-activity-calendar';
 import SkillIconMap from '../components/skills/SkillIconMap';
 import SEO from '../components/common/SEO';
 
@@ -27,6 +27,40 @@ const Skills = () => {
 
     const [skillsData, setSkillsData] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [calendarData, setCalendarData] = useState([]);
+    const [calendarLoading, setCalendarLoading] = useState(true);
+    const [calendarError, setCalendarError] = useState(null);
+
+    useEffect(() => {
+        const fetchCalendarData = async () => {
+            try {
+                const username = import.meta.env.VITE_GITHUB_USERNAME || "HetLadani3";
+                // Fetch from jogruber API directly (which returns the correct schema and works perfectly)
+                const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setCalendarData(data.contributions || []);
+                } else {
+                    // Fallback to the working deno endpoint without /v1/
+                    const responseFallback = await fetch(`https://github-contributions-api.deno.dev/${username}`);
+                    if (responseFallback.ok) {
+                        const dataFallback = await responseFallback.json();
+                        setCalendarData(dataFallback.contributions || []);
+                    } else {
+                        throw new Error('Failed to fetch GitHub contributions data');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching calendar data:', error);
+                setCalendarError(error.message);
+            } finally {
+                setCalendarLoading(false);
+            }
+        };
+
+        fetchCalendarData();
+    }, []);
 
     useEffect(() => {
         const fetchSkills = async () => {
@@ -198,14 +232,19 @@ const Skills = () => {
                             </div>
                             <div className="w-full overflow-x-auto pb-4 custom-scrollbar flex justify-center">
                                 <div className="min-w-max text-white">
-                                    <GitHubCalendar
-                                        username={import.meta.env.VITE_GITHUB_USERNAME || "HetLadani3"}
-                                        theme={explicitTheme}
-                                        colorScheme="dark"
-                                        blockSize={14}
-                                        blockMargin={5}
-                                        fontSize={14}
-                                    />
+                                    {calendarError ? (
+                                        <div className="text-neutral-500 text-sm">Could not load contributions calendar.</div>
+                                    ) : (
+                                        <ActivityCalendar
+                                            data={calendarData}
+                                            theme={explicitTheme}
+                                            colorScheme="dark"
+                                            blockSize={14}
+                                            blockMargin={5}
+                                            fontSize={14}
+                                            loading={calendarLoading}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>
