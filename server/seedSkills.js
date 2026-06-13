@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Skill from './models/Skill.js';
+import Project from './models/Project.js';
 
 dotenv.config();
 
@@ -107,17 +108,48 @@ const initialSkills = [
     }
 ];
 
+const initialProjects = [
+    {
+        title: "NextCall",
+        subtitle: "Real-time Video Conferencing & Multiplayer Collaboration Space",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1616763355548-1b606f439f86?q=80&w=800",
+        live: "https://next-call-git-main-hetladani3s-projects.vercel.app",
+        github: "https://github.com/HetLadani3/NextCall"
+    },
+    {
+        title: "Indi Gro",
+        subtitle: "Organic E-Commerce Marketplace & Seamless Checkout",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800",
+        live: "https://indi-gro-backend.onrender.com",
+        github: "https://github.com/HetLadani3/Indi-Gro"
+    },
+    {
+        title: "DevHub",
+        subtitle: "Real-time Pair Programming Rooms & AI Code Review Gateway",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800",
+        live: "https://dev-hub-lac-eight.vercel.app",
+        github: "https://github.com/HetLadani3/DevHub"
+    }
+];
+
 mongoose.connect(MONGO_URI)
   .then(async () => {
     console.log('Connected to MongoDB');
     
-    // Clear existing skills
+    // Clear and seed skills
     await Skill.deleteMany({});
     console.log('Cleared existing skills from database.');
-
-    // Insert new skills
     await Skill.insertMany(initialSkills);
     console.log(`Successfully seeded ${initialSkills.length} skills!`);
+
+    // Clear and seed projects
+    await Project.deleteMany({});
+    console.log('Cleared existing projects from database.');
+    await Project.insertMany(initialProjects);
+    console.log(`Successfully seeded ${initialProjects.length} projects!`);
 
     mongoose.disconnect();
   })
