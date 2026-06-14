@@ -32,6 +32,21 @@ const Skills = () => {
     const [calendarLoading, setCalendarLoading] = useState(true);
     const [calendarError, setCalendarError] = useState(null);
 
+    const [leetcodeData, setLeetcodeData] = useState([]);
+    const [leetcodeLoading, setLeetcodeLoading] = useState(true);
+    const [leetcodeError, setLeetcodeError] = useState(null);
+
+    // Custom theme for LeetCode (Orange theme)
+    const leetcodeTheme = {
+        light: ['#1e1e1e', '#795015', '#b0751e', '#df9425', '#ffa116'],
+        dark: ['#1e1e1e', '#795015', '#b0751e', '#df9425', '#ffa116'],
+    };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setNavColor('black');
+    }, [setNavColor]);
+
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
@@ -63,6 +78,28 @@ const Skills = () => {
     }, []);
 
     useEffect(() => {
+        const fetchLeetcodeData = async () => {
+            try {
+                const username = import.meta.env.VITE_LEETCODE_USERNAME || "7BCkupPs7t";
+                const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/leetcode/${username}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setLeetcodeData(data);
+                } else {
+                    throw new Error('Failed to fetch LeetCode contributions data');
+                }
+            } catch (error) {
+                console.error('Error fetching LeetCode data:', error);
+                setLeetcodeError(error.message);
+            } finally {
+                setLeetcodeLoading(false);
+            }
+        };
+
+        fetchLeetcodeData();
+    }, []);
+
+    useEffect(() => {
         const fetchSkills = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/skills`);
@@ -83,71 +120,80 @@ const Skills = () => {
     }, []);
 
     useEffect(() => {
-        if (!loading && !calendarLoading) {
+        if (!loading && !calendarLoading && !leetcodeLoading) {
             const timer = setTimeout(() => {
                 ScrollTrigger.refresh();
             }, 150);
             return () => clearTimeout(timer);
         }
-    }, [loading, calendarLoading]);
+    }, [loading, calendarLoading, leetcodeLoading]);
 
     useGSAP(function () {
-        // Fade out title text
+        if (loading || calendarLoading || leetcodeLoading) return;
+
+        // Fade out title text as the skills deck rises (start delayed to avoid fading on land)
         gsap.to(titleRef.current, {
             opacity: 0,
             scrollTrigger: {
-                trigger: craftTextRef.current,
-                start: 'top 100%',
+                trigger: '#page2',
+                start: 'top 75%',
                 end: 'top 30%',
                 scrub: true
             }
         })
 
-        // Change background to black
+        // Change background to black as the skills deck rises (start delayed to avoid fading on land)
         gsap.to(parentRef.current, {
             backgroundColor: '#030303',
             scrollTrigger: {
-                trigger: craftTextRef.current,
-                start: 'top 80%',
-                end: 'top 30%',
+                trigger: '#page2',
+                start: 'top 70%',
+                end: 'top 40%',
                 scrub: true
             }
         })
 
-        // Toggle Navbar color midway through transition
+        // Toggle Navbar color as the page transitions to black background
         ScrollTrigger.create({
-            trigger: craftTextRef.current,
-            start: 'top 55%',
+            trigger: '#page2',
+            start: 'top 50%',
             onEnter: () => setNavColor('white'),
             onLeaveBack: () => setNavColor('black')
         });
 
-        // Change paragraph text to light
+        // Change paragraph text to light as the skills deck rises (start delayed to avoid fading on land)
         gsap.to(craftTextRef.current, {
             color: '#d4d4d4',
             scrollTrigger: {
-                trigger: craftTextRef.current,
-                start: 'top 80%',
-                end: 'top 30%',
+                trigger: '#page2',
+                start: 'top 70%',
+                end: 'top 40%',
                 scrub: true
             }
         });
 
-        // Heatmap Section Animation
+        // Heatmap Section Animation (using fromTo to prevent React state re-render bugs)
         if (heatmapRef.current) {
-            gsap.from(heatmapRef.current.children, {
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: heatmapRef.current,
-                    start: 'top 80%'
+            gsap.fromTo(heatmapRef.current.children, 
+                {
+                    y: 100,
+                    opacity: 0
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: heatmapRef.current,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
                 }
-            });
+            );
         }
-    }, [skillsData, calendarLoading]);
+    }, [loading, calendarLoading, leetcodeLoading, skillsData]);
 
     return (
         <div ref={parentRef} className='parent select-none bg-white min-h-screen pb-32'>
@@ -156,17 +202,17 @@ const Skills = () => {
                 description="Explore the technical capabilities and skillset of Het Ladani. Includes React, Node.js, system design, data structures & algorithms (DSA), and machine learning."
                 keywords="Technical Skills, Het Ladani Skills, Fullstack Developer, React developer, Node.js developer, DSA expertise"
             />
-            <div id='page1' className='py-1 relative'>
+            <div id='page1' className='min-h-[85vh] flex flex-col justify-between py-1 relative'>
                 {/* Big Title Row */}
-                <div className='relative font-[font2] z-10 pointer-events-none'>
-                    <div className='lg:mt-[40vh] mt-[25vh]'>
+                <div className='relative font-[font2] z-10 pointer-events-none flex-1 flex flex-col justify-between'>
+                    <div className='lg:mt-[15vh] mt-[10vh]'>
                         <h1 ref={titleRef} className='text-[16vw] text-center uppercase leading-[14vw] tracking-tighter text-black'>
                             TECHNICAL <br /> SKILLS
                         </h1>
                     </div>
 
                     {/* Developer Manifesto Paragraph */}
-                    <div className='lg:pl-[55%] lg:mt-16 mt-8 p-4 lg:p-6 pointer-events-auto'>
+                    <div className='lg:pl-[50%] p-4 lg:p-6 pointer-events-auto flex justify-end mb-8'>
                         <p ref={craftTextRef} className='lg:text-2xl text-lg lg:leading-relaxed leading-snug font-light text-neutral-800 max-w-xl font-[font1]'>
                             I believe in craft-driven development that prioritizes clean, optimized code, scalable systems, and pixel-perfect design. From building high-performance APIs to designing fluid user interfaces, every line of code is an opportunity to shape a modern, robust, and beautiful experience.
                         </p>
@@ -252,6 +298,35 @@ const Skills = () => {
                                             blockMargin={5}
                                             fontSize={14}
                                             loading={calendarLoading}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* LeetCode Heatmap */}
+                        <div className="w-full max-w-4xl flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 p-6 md:p-10 shadow-2xl hover:border-[#ffa116]/50 transition-colors duration-500">
+                            <div className="flex items-center gap-3 mb-8 w-full justify-center md:justify-start">
+                                <img 
+                                    src="https://raw.githubusercontent.com/github/explore/main/topics/leetcode/leetcode.png" 
+                                    className="w-8 h-8 object-contain" 
+                                    alt="LeetCode Logo" 
+                                />
+                                <h3 className="text-xl md:text-2xl font-[font2] text-white uppercase tracking-wider">LeetCode Submissions</h3>
+                            </div>
+                            <div className="w-full overflow-x-auto pb-4 custom-scrollbar flex justify-center">
+                                <div className="min-w-max text-white">
+                                    {leetcodeError ? (
+                                        <div className="text-neutral-500 text-sm">Could not load LeetCode calendar.</div>
+                                    ) : (
+                                        <ActivityCalendar
+                                            data={leetcodeData}
+                                            theme={leetcodeTheme}
+                                            colorScheme="dark"
+                                            blockSize={14}
+                                            blockMargin={5}
+                                            fontSize={14}
+                                            loading={leetcodeLoading}
                                         />
                                     )}
                                 </div>

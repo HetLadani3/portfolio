@@ -86,10 +86,10 @@ const initialSkills = [
         iconKey: "mongodb"
     },
     {
-        name: "SQL & Postgres",
-        category: "Relational DB",
+        name: "SQL & NoSQL",
+        category: "Database Engines",
         level: "Advanced",
-        desc: "Writing relational SQL queries, table join structures, database transactions integrity, indexing optimization, and secure triggers.",
+        desc: "Designing relational SQL schemas, writing complex queries, and structuring NoSQL document store architectures for high-performance workloads.",
         iconKey: "sql"
     },
     {

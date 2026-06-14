@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import projectRoutes from './routes/projectRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
+import leetcodeRoutes from './routes/leetcodeRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/skills', skillRoutes);
+app.use('/api/leetcode', leetcodeRoutes);
 
 // Database Connection
 const PORT = process.env.PORT || 5000;
