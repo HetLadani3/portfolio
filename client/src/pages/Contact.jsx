@@ -98,8 +98,8 @@ const Contact = () => {
                     <div ref={infoRef} className='lg:w-1/2 flex flex-col gap-10 lg:gap-14'>
                         <div>
                             <h3 className='text-xs md:text-sm tracking-widest text-[#D3FD50] uppercase mb-4 font-[font2]'>The Inbox</h3>
-                            <a href="mailto:hello@example.com" className='text-3xl md:text-5xl lg:text-6xl font-light hover:text-[#D3FD50] transition-colors duration-300 pointer-events-auto'>
-                                hello@example.com
+                            <a href="mailto:hetladani2019@gmail.com" className='text-3xl md:text-5xl lg:text-6xl font-light hover:text-[#D3FD50] transition-colors duration-300 pointer-events-auto'>
+                                hetladani2019@gmail.com
                             </a>
                         </div>
 
@@ -114,9 +114,19 @@ const Contact = () => {
                         <div>
                             <h3 className='text-xs md:text-sm tracking-widest text-[#D3FD50] uppercase mb-4 font-[font2]'>Socials</h3>
                             <div className='flex flex-col gap-2'>
-                                {['LinkedIn', 'Twitter', 'GitHub', 'Instagram'].map((social) => (
-                                    <a key={social} href="#" className='text-xl text-neutral-300 hover:text-[#D3FD50] hover:translate-x-2 transition-all duration-300 w-max pointer-events-auto'>
-                                        {social}
+                                {[
+                                    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/hetladani/' },
+                                    { name: 'GitHub', url: 'https://github.com/HetLadani3' },
+                                    { name: 'LeetCode', url: 'https://leetcode.com/u/7BCkupPs7t/' }
+                                ].map((social) => (
+                                    <a 
+                                        key={social.name} 
+                                        href={social.url} 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className='text-xl text-neutral-300 hover:text-[#D3FD50] hover:translate-x-2 transition-all duration-300 w-max pointer-events-auto'
+                                    >
+                                        {social.name}
                                     </a>
                                 ))}
                             </div>

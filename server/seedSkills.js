@@ -122,7 +122,7 @@ const initialProjects = [
         subtitle: "Organic E-Commerce Marketplace & Seamless Checkout",
         year: "2026",
         image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800",
-        live: "https://indi-gro-backend.onrender.com",
+        live: "https://indi-gro.vercel.app/",
         github: "https://github.com/HetLadani3/Indi-Gro"
     },
     {
