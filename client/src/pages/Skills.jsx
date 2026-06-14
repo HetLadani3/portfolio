@@ -82,6 +82,15 @@ const Skills = () => {
         fetchSkills();
     }, []);
 
+    useEffect(() => {
+        if (!loading && !calendarLoading) {
+            const timer = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 150);
+            return () => clearTimeout(timer);
+        }
+    }, [loading, calendarLoading]);
+
     useGSAP(function () {
         // Fade out title text
         gsap.to(titleRef.current, {
@@ -138,7 +147,7 @@ const Skills = () => {
                 }
             });
         }
-    }, [skillsData]);
+    }, [skillsData, calendarLoading]);
 
     return (
         <div ref={parentRef} className='parent select-none bg-white min-h-screen pb-32'>
