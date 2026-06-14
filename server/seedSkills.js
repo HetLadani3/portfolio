@@ -105,6 +105,34 @@ const initialSkills = [
         level: "Advanced",
         desc: "Structuring reliable object-oriented software architectures, design patterns, multithreaded systems, memory optimization, and garbage collection configurations.",
         iconKey: "java"
+    },
+    {
+        name: "PostgreSQL",
+        category: "Relational DB",
+        level: "Advanced",
+        desc: "Designing schemas, SQL queries, transaction management, indexing, optimization, and relational data modeling with Prisma ORM.",
+        iconKey: "postgres"
+    },
+    {
+        name: "Vite",
+        category: "Frontend Dev",
+        level: "Advanced",
+        desc: "High-performance frontend builds, module replacement (HMR), static asset serving, and compiler optimization configurations.",
+        iconKey: "vite"
+    },
+    {
+        name: "DSA",
+        category: "CS Fundamentals",
+        level: "Advanced",
+        desc: "Solving algorithmic problems, optimizing time and space complexity, dynamic programming, trees, graphs, and system design constructs.",
+        iconKey: "dsa"
+    },
+    {
+        name: "Auth & Security",
+        category: "Web Security",
+        level: "Advanced",
+        desc: "Implementing secure stateless user authentication, token verification (JWT), password hashing (bcrypt), and role-based access control.",
+        iconKey: "auth"
     }
 ];
 

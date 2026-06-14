@@ -98,7 +98,7 @@ const GlobalFooter = () => {
                     rel="noopener noreferrer" 
                     className={`hover:text-[#D3FD50] text-xs md:text-sm lg:text-base font-light uppercase tracking-widest font-[font1] transition-colors duration-300`}
                 >
-                    GH
+                    GitHub
                 </a>
                 <a 
                     href="https://www.linkedin.com/in/hetladani/" 
@@ -106,7 +106,7 @@ const GlobalFooter = () => {
                     rel="noopener noreferrer" 
                     className={`hover:text-[#D3FD50] text-xs md:text-sm lg:text-base font-light uppercase tracking-widest font-[font1] transition-colors duration-300`}
                 >
-                    IN
+                    LinkedIn
                 </a>
                 <a 
                     href="https://leetcode.com/u/7BCkupPs7t/" 
@@ -114,7 +114,7 @@ const GlobalFooter = () => {
                     rel="noopener noreferrer" 
                     className={`hover:text-[#D3FD50] text-xs md:text-sm lg:text-base font-light uppercase tracking-widest font-[font1] transition-colors duration-300`}
                 >
-                    LC
+                    LeetCode
                 </a>
             </div>
         </div>

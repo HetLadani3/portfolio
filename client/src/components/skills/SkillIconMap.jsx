@@ -94,6 +94,37 @@ const SkillIconMap = {
             <path d="M15 11c0-1 1-2 1-3.5" />
         </svg>
     ),
+    vite: (
+        <svg className="w-16 h-16 text-[#646CFF] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L3 11h7v11l9-9h-7V2z" />
+        </svg>
+    ),
+    postgres: (
+        <svg className="w-16 h-16 text-[#336791] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <ellipse cx="12" cy="5" rx="7" ry="2" />
+            <path d="M5 5v5c0 1.1 3.1 2 7 2s7-.9 7-2V5" />
+            <path d="M5 10v5c0 1.1 3.1 2 7 2s7-.9 7-2v-5" opacity="0.8" />
+            <path d="M5 15v4c0 1.1 3.1 2 7 2s7-.9 7-2v-4" opacity="0.6" />
+            <text x="12" y="14" fontWeight="bold" fontSize="5" textAnchor="middle" fill="currentColor" fontFamily="sans-serif">PSQL</text>
+        </svg>
+    ),
+    dsa: (
+        <svg className="w-16 h-16 text-[#D3FD50] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="12" cy="5" r="2.5" fill="currentColor" />
+            <circle cx="6" cy="13" r="2.5" fill="currentColor" />
+            <circle cx="18" cy="13" r="2.5" fill="currentColor" />
+            <circle cx="6" cy="20" r="2.5" fill="currentColor" />
+            <line x1="12" y1="7.5" x2="7.5" y2="11" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="12" y1="7.5" x2="16.5" y2="11" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="6" y1="15.5" x2="6" y2="17.5" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+    ),
+    auth: (
+        <svg className="w-16 h-16 text-[#10B981] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <rect x="5" y="11" width="14" height="10" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0110 0v4" />
+        </svg>
+    ),
     default: (
         <svg className="w-16 h-16 text-white transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="12" cy="12" r="10" />
